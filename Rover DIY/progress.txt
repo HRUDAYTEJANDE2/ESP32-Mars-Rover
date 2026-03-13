@@ -1,0 +1,14 @@
+# 13/3/2026
+
+- Visualised motor output in a 4 wheel differential drive system using LEDs (I don't have the motors yet) and worked on the motors' translational and rotational LED output
+- Now when given commands by serial such as forward, backward, left, right, rleft (left rotation), rright (right rotation) and stop, the LEDs light on based on the corresponding motors
+- Static lights for translational movements, animations for rotational
+
+PROBLEMS:-
+- After the rotational movement, there is no way to depict rotational movements along with straight movements
+
+NEXT STEPS
+- Work on 6 wheel drive and visualise rotational and translational movements together
+- Initiate ESPNOW communication between base ESP and rover ESP to send commands via base ESP
+- DHT11 sensor for humidity and temperature
+- Try to reject invalid commands
