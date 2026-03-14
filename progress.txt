@@ -1,6 +1,6 @@
 # 13/3/2026
 
-- Visualised motor output in a 4 wheel differential drive system using LEDs (I don't have the motors yet) and worked on the motors' translational and rotational LED output
+- Visualized motor output in a 4 wheel differential drive system using LEDs (I don't have the motors yet) and worked on the motors' translational and rotational LED output
 - Now when given commands by serial such as forward, backward, left, right, rleft (left rotation), rright (right rotation) and stop, the LEDs light on based on the corresponding motors
 - Static lights for translational movements, animations for rotational
 
@@ -8,7 +8,38 @@ PROBLEMS:-
 - After the rotational movement, there is no way to depict rotational movements along with straight movements
 
 NEXT STEPS
-- Work on 6 wheel drive and visualise rotational and translational movements together
+- Work on 6 wheel drive and visualize rotational and translational movements together
 - Initiate ESPNOW communication between base ESP and rover ESP to send commands via base ESP
 - DHT11 sensor for humidity and temperature
 - Try to reject invalid commands
+
+# 14/3/2026
+
+- I tried to animate the translational movements and visualize the 6WD system using LEDs, but it was too complicated to code, so I'll add the 6WD system later when I get the motors.
+- I'll use the LED system for testing commands
+- Added ESP-NOW communication between base and rover
+- The base ESP sends integers based on the command it receives:-
+1 = left, 2 = right...
+The integers are sent to the rover, which executes the required function
+
+Command -> Base -> (string to integer) -> Rover (integer to command)
+
+- All the commands are now inside void output(int input) which executes the command for the given integer input
+
+PROBLEMS
+- After I made the code, I was confused as to why my code outputted LEFT instead of the given command. I soon realized that I used '=' instead of '==' *sighs*
+- My rover's ESP kept crashing, but I figured it out now.
+
+The ESP32 crashed (kernel panic) when executing the rleft and rright commands. The serial monitor showed a watchdog reset and the program stopped responding to new ESP-NOW commands.
+
+The code used while(true) loops inside the rleft and rright functions, blocking the main() function.
+
+I removed the rleft and rright codes from output(), and added a variable where the rover mode is stored (mode) instead of calling main.a . The main loop() continuously checks this state and runs the required output.
+
+NEXT STEPS
+- Two way communication between base and rover (to collect sensor data from the rover)
+- Add DHT11 sensor
+- Control using a remote controller
+- Data encryption
+
+
