@@ -30,7 +30,7 @@ PROBLEMS
 - After I made the code, I was confused as to why my code outputted LEFT instead of the given command. I soon realized that I used '=' instead of '==' *sighs*
 - My rover's ESP kept crashing, but I figured it out now.
 
-The ESP32 crashed (kernel panic) when executing the rleft and rright commands. The serial monitor showed a watchdog reset and the program stopped responding to new ESP-NOW commands.
+The ESP32 crashed when executing the rleft and rright commands. The serial monitor showed a watchdog reset and the program stopped responding to new ESP-NOW commands.
 
 The code used while(true) loops inside the rleft and rright functions, blocking the main() function.
 
@@ -42,4 +42,26 @@ NEXT STEPS
 - Control using a remote controller
 - Data encryption
 
+# 3/22/2026
+
+- Added a DHT11 sensor and two-way communication
+- Base sends commands to rover and rover sends sensor data (temp, humidity, heat index) to base every 200 ms
+- Sensor grabs data every 2 seconds from void getDHTdata(); and sends to base
+
+PROBLEMS
+- When the rover was turned off, the base just stopped sending commands. I honestly don't know what the actual problem was, but tweaking the code trying to solve other problems somehow fixed it :/
+- The rover kernel kept crashing (AGAIN!!!) so I changed delay(2000) to millis();
+
+NEXT STEPS
+- Add an LCD to the base ESP to see data via a menu instead of Serial Monitor
+- Collecting sensor status data
+- Storing data in the rover via an SD card (module) and storing received data to the base in the PC
+- Add a soil moisture sensor
+
+FUTURE STEPS
+- Actual motor movement when I get the motors, cause right now I can't show more than 1 type of movement simultaneously
+- Microphone and camera to record
+- Compass, IMU and a sun sensor (photoresistors) to correct movement
+- A robotic arm
+- Mapping surroundings using laser distance sensors (or IR proximity sensors) and a SONAR (using ultrasonic sensors and a servo)
 
